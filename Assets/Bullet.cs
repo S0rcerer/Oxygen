@@ -19,7 +19,6 @@ public class Bullet : MonoBehaviour {
 	}
 
 	void OnTriggerEnter2D(Collider2D other) {
-		GameObject player = GameObject.FindGameObjectWithTag("Player");
 		BoxCollider2D playerCollider = player.GetComponent<BoxCollider2D> ();
 		if (other != playerCollider) {
 			Destroy (gameObject);
