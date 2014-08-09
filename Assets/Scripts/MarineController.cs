@@ -56,6 +56,7 @@ public class MarineController : MonoBehaviour {
 		if (Input.GetButton("Fire1") && Time.time > nextFire) {	
 			nextFire = Time.time + fireRate;
 			GameObject newBullet =  Instantiate(bullet, transform.position, transform.rotation) as GameObject;
+			newBullet.GetComponent<Bullet>().player = rigidbody2D;
 			newBullet.GetComponent<Rigidbody2D>().velocity = getMouseFacingVector().normalized * 20.0f;
 
 		}
