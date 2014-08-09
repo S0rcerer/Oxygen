@@ -17,7 +17,7 @@ public class MarineController : MonoBehaviour {
 		rigidbody2D.velocity = new Vector2 (x, y);
 		Quaternion rotation = transform.localRotation;
 		rotation.z = getMouseFacing ();
-		transform.localRotation = Quaternion.AngleAxis (getMouseFacing() - 90, Vector3.forward);
+		transform.rotation = Quaternion.AngleAxis (getMouseFacing() - 90, Vector3.forward);
 	}
 
 	float getMouseFacing()
