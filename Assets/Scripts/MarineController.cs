@@ -8,7 +8,7 @@ public class MarineController : MonoBehaviour {
 	private float o2;
 	public GUIText o2text;
 	public GUITexture o2BarValue;
-
+	public Camera camera;
 	private bool stayOnOxygenStation;
 
 
@@ -29,6 +29,7 @@ public class MarineController : MonoBehaviour {
 		Quaternion rotation = transform.localRotation;
 		rotation.z = getMouseFacing ();
 		transform.localRotation = Quaternion.AngleAxis (getMouseFacing() - 90, Vector3.forward);
+		cameraFollow ();
 	}
 
 
@@ -83,6 +84,10 @@ public class MarineController : MonoBehaviour {
 
 	}
 
+	void cameraFollow()
+	{
+		camera.transform.position = new Vector3 (transform.position.x, transform.position.y, camera.transform.position.z);
+	}
 	void OnTriggerExit2D(Collider2D other) {
 		CircleCollider2D oxygenStationCollider = GameObject.FindGameObjectWithTag("OxygenStation").GetComponent<CircleCollider2D>();
 		if (other == oxygenStationCollider) {
