@@ -7,6 +7,7 @@ public class MarineController : MonoBehaviour {
 	public GameObject bullet;
 	private float o2;
 	public GUIText o2text;
+	public GUITexture o2BarValue;
 
 	private bool stayOnOxygenStation;
 
@@ -50,7 +51,6 @@ public class MarineController : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-
 		updateOxygen ();
 		o2text.text = o2.ToString();
 		if (Input.GetButton("Fire1") && Time.time > nextFire) {	
@@ -76,6 +76,10 @@ public class MarineController : MonoBehaviour {
 				o2 = 0.0f;
 			}
 		}
+
+		o2BarValue.pixelInset = new Rect (-64.0f, -29.0f, 100.0f * o2/ 100.0f, 25.0f);
+
+
 	}
 
 	void OnTriggerExit2D(Collider2D other) {
