@@ -4,7 +4,12 @@ using System.Collections;
 public class MarineController : MonoBehaviour {
 
 	public float Speed;
+	public GameObject bullet;
 	public GUIText text;
+
+	public float fireRate = 0.5F;
+	private float nextFire = 0.0F;
+
 	// Use this for initialization
 	void Start () {
 	
@@ -20,6 +25,8 @@ public class MarineController : MonoBehaviour {
 		transform.localRotation = Quaternion.AngleAxis (getMouseFacing() - 90, Vector3.forward);
 	}
 
+
+
 	float getMouseFacing()
 	{
 		Vector2 marinePos = rigidbody2D.position;
@@ -28,8 +35,21 @@ public class MarineController : MonoBehaviour {
 		return (angle * Mathf.Rad2Deg);
 	}
 
+	Vector2 getMouseFacingVector()
+	{
+		Vector2 marinePos = rigidbody2D.position;
+		Vector2 worldCursorPosition = (Vector2)Camera.main.ScreenToWorldPoint (Input.mousePosition);
+
+		return worldCursorPosition - marinePos;
+	}
+
 	// Update is called once per frame
 	void Update () {
+		if (Input.GetButton("Fire1") && Time.time > nextFire) {
+			nextFire = Time.time + fireRate;
+			GameObject newBullet =  Instantiate(bullet, transform.position, transform.rotation) as GameObject;
+			newBullet.GetComponent<Rigidbody2D>().velocity = getMouseFacingVector().normalized * 10.0f;
 
+		}
 	}
 }
