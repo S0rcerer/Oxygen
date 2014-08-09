@@ -6,11 +6,12 @@ public class Monster : MonoBehaviour
 
 	Node targetNode = null;
 	float maxVelocity = 4f;
-
+	float HP;
 
 	// Use this for initialization
 	void Start () 
 	{
+		HP = 100.0f;
 		if (targetNode == null && Globals.NodeManager != null) 
 		{
 			targetNode = Globals.NodeManager.SeekClosestNode((Vector2)transform.position);
@@ -53,7 +54,15 @@ public class Monster : MonoBehaviour
 	void OnTriggerEnter2D(Collider2D other)
 	{
 		Debug.Log (@"Yay");
-		NodeCollision(other);
+		if (other.CompareTag ("Bullet")) {
+			Debug.Log("Buller");
+			HP-=10.0f;
+			if (HP < 0.0) {
+				Destroy(gameObject);
+			}
+		} else {
+			NodeCollision(other);
+		}
 	}
 
 }

@@ -18,10 +18,8 @@ public class Bullet : MonoBehaviour {
 		}
 	}
 
-	void OnTriggerEnter2D(Collider2D other) {
-		BoxCollider2D playerCollider = player.GetComponent<BoxCollider2D> ();
-		if (other != playerCollider) {
-			Destroy (gameObject);
-		}
+	void OnTriggerEnter2D(Collider2D other)
+	{
+		Destroy(gameObject, 0.01f);
 	}
 }
