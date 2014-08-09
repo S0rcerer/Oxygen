@@ -7,12 +7,13 @@ public class MarineController : MonoBehaviour {
 	public GameObject bullet;
 	public GUIText text;
 
-	public float fireRate = 0.5F;
-	private float nextFire = 0.0F;
+	public float fireRate = 0.000001f;
+	private double nextFire = 0.0F;
+	public int shotFrames;
 
 	// Use this for initialization
 	void Start () {
-	
+		shotFrames = 0;
 	}
 
 	void FixedUpdate ()
@@ -45,10 +46,10 @@ public class MarineController : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-		if (Input.GetButton("Fire1") && Time.time > nextFire) {
+		if (Input.GetButton("Fire1") && Time.time > nextFire) {	
 			nextFire = Time.time + fireRate;
 			GameObject newBullet =  Instantiate(bullet, transform.position, transform.rotation) as GameObject;
-			newBullet.GetComponent<Rigidbody2D>().velocity = getMouseFacingVector().normalized * 10.0f;
+			newBullet.GetComponent<Rigidbody2D>().velocity = getMouseFacingVector().normalized * 20.0f;
 
 		}
 	}
