@@ -5,7 +5,11 @@ public class MarineController : MonoBehaviour {
 
 	public float Speed;
 	public GameObject bullet;
-	public GUIText text;
+	private float o2;
+	public GUIText o2text;
+
+	private bool stayOnOxygenStation;
+
 
 	public float fireRate = 0.000001f;
 	private double nextFire = 0.0F;
@@ -46,11 +50,47 @@ public class MarineController : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
+
+		updateOxygen ();
+		o2text.text = o2.ToString();
 		if (Input.GetButton("Fire1") && Time.time > nextFire) {	
 			nextFire = Time.time + fireRate;
 			GameObject newBullet =  Instantiate(bullet, transform.position, transform.rotation) as GameObject;
 			newBullet.GetComponent<Rigidbody2D>().velocity = getMouseFacingVector().normalized * 20.0f;
 
 		}
+
+
+	}
+
+	void updateOxygen()
+	{
+		if (stayOnOxygenStation) {
+			o2 += 1.0f;
+			if (o2 > 100.0f) {
+				o2 = 100.0f;
+			}
+		} else {
+			o2 -= 0.05f;
+			if (o2 < 0.0f) {
+				o2 = 0.0f;
+			}
+		}
+	}
+
+	void OnTriggerExit2D(Collider2D other) {
+		CircleCollider2D oxygenStationCollider = GameObject.FindGameObjectWithTag("OxygenStation").GetComponent<CircleCollider2D>();
+		if (other == oxygenStationCollider) {
+			stayOnOxygenStation = false;
+		}
+		
+	}
+
+	void OnTriggerEnter2D(Collider2D other) {
+		CircleCollider2D oxygenStationCollider = GameObject.FindGameObjectWithTag("OxygenStation").GetComponent<CircleCollider2D>();
+		if (other == oxygenStationCollider) {
+			stayOnOxygenStation = true;
+		}
+
 	}
 }
